@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3 col-xs-12">
+        <div infinite-scroll='loadMore()'>
+            <!--<div>-->
+            <div ng-repeat="info in newsInit">
+                <div ng-repeat="msg in info" style="padding: 10px 0px; border-bottom: 1px dashed #ddd">
+                    <p style="font-size: 16px">
+                        <b>{{msg.p_name}}</b>
+                    </p>
+                    <p>
+                        {{msg.time}} -
+                        {{msg.his}} -
+                        {{msg.week}}
+                    </p>
+                    <p>
+                        <span style="color: #276e85">{{msg.user_name}}</span> -
+                        {{msg.m_name}}
+                    </p>
+                    <p>
+                        {{msg.content | splite}}
+                        <!--{{msg.rid}}-->
+                    </p>
+                </div>
+            </div>
+            <div ng-repeat="info in news">
+                <div ng-repeat="msg in info" style="padding: 10px 0px; border-bottom: 1px dashed #ddd">
+                    <p style="font-size: 16px">
+                        <b>{{msg.p_name}}</b>
+                    </p>
+                    <p>
+                        {{msg.time}} -
+                        {{msg.his}} -
+                        {{msg.week}}
+                    </p>
+                    <p>
+                         <span style="color: #276e85">{{msg.user_name}}</span> -
+                        {{msg.m_name}}
+                    </p>
+                    <p>
+                        {{msg.content | splite}}
+                    </p>
+                    <!--{{msg.rid}}-->
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

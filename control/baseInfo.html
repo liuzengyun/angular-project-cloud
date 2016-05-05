@@ -1,0 +1,150 @@
+<ul id="myTab" class="nav nav-tabs">
+    <li class="active">
+        <a href="#/baseInfo/{{commonPid}}" data-toggle="tab">基本信息</a>
+    </li>
+    <!--<li>-->
+    <!--<a href="#/speed/{{commonPid}}" data-toggle="tab">进度</a>-->
+    <!--</li>-->
+    <li>
+        <a href="#/files/{{commonPid}}" data-toggle="tab">文件</a>
+    </li>
+    <!--<li>-->
+    <!--<a href="#/endProject/{{commonPid}}" data-toggle="tab">结项</a>-->
+    <!--</li>-->
+</ul>
+<br/>
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade in active" id="baseInfo">
+        <div class="tab-content">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        {{data.project.name}}
+                        <span class="glyphicon glyphicon-edit pull-right" data-toggle="modal" data-target="#myModal"
+                              style="cursor: pointer" title="修改项目"></span>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <p>标<span style="margin: 0 7px"></span>的<span style="margin: 0 7px"></span>额: &nbsp;{{data.project.money}}万
+                    </p>
+                    <p>案<span style="margin: 0 3px"></span>情<span style="margin: 0 2px"></span>简<span
+                            style="margin: 0 2px"></span>介: &nbsp;{{data.project.brief}}</p>
+                    <p>状<span style="margin: 0 21px"></span>态: &nbsp;{{data.project.status}}</p>
+                    <p>客<span style="margin: 0 2px"></span>户<span style="margin: 0 2px"></span>目<span
+                            style="margin: 0 3px"></span>标: &nbsp;{{data.project.goals | splite}}</p>
+
+                    <p>对方当事人: &nbsp;{{data.project.opposite}}</p>
+                    <p>第<span style="margin: 0 7px"></span>三<span style="margin: 0 7px"></span>人: &nbsp;{{data.project.third}}
+                    </p>
+                    <p>对<span style="margin: 0 7px"></span>接<span style="margin: 0 7px"></span>人: &nbsp;
+                        {{data.project.middle_man}}</p>
+                    <p>对接人电话: &nbsp; {{data.project.middle_man_phone}}</p>
+                    <p>对接人公司: &nbsp; {{data.project.middle_man_firm}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 col-xs-12" ng-if="data.client != undefined">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                客户信息
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <p>名称: &nbsp;{{data.client.name}}</p>
+                            <p>手机: &nbsp;{{data.client.phone}}</p>
+                            <p>公司或对接人: &nbsp;{{data.client.firm}}</p>
+                            <p>职位: &nbsp;{{data.client.position}}</p>
+                            <p>部门: &nbsp;{{data.client.department}}</p>
+                            <p>电话: &nbsp;{{data.client.tel}}</p>
+                            <p>邮箱: &nbsp;{{data.client.email}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-12" ng-if="data.sales != undefined">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">市场人员信息
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <p>名字: &nbsp;{{data.sales.name}}</p>
+                            <p>手机: &nbsp;{{data.sales.phone}}</p>
+                            <p>公司: &nbsp;{{data.sales.firm}}</p>
+                            <p>职位: &nbsp;{{data.sales.position}}</p>
+                            <p>部门: &nbsp;{{data.sales.department}}</p>
+                            <p>电话: &nbsp;{{data.sales.tel}}</p>
+                            <p>邮箱: &nbsp;{{data.sales.email}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-12" ng-if="data.lawyer != undefined">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">律师信息
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <p>名字: &nbsp;{{data.lawyer.name}}</p>
+                            <p>手机: &nbsp;{{data.lawyer.phone}}</p>
+                            <p>公司: &nbsp;{{data.lawyer.firm}}</p>
+                            <p>职位: &nbsp;{{data.lawyer.position}}</p>
+                            <p>部门: &nbsp;{{data.lawyer.department}}</p>
+                            <p>电话: &nbsp;{{data.lawyer.tel}}</p>
+                            <p>邮箱: &nbsp;{{data.lawyer.email}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-12" ng-if="data.manager != undefined">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">项目经理信息
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <p>名字: &nbsp;{{data.manager.name}}</p>
+                            <p>手机: &nbsp;{{data.manager.phone}}</p>
+                            <p>公司: &nbsp;{{data.manager.firm}}</p>
+                            <p>职位: &nbsp;{{data.manager.position}}</p>
+                            <p>部门: &nbsp;{{data.manager.department}}</p>
+                            <p>电话: &nbsp;{{data.manager.tel}}</p>
+                            <p>邮箱: &nbsp;{{data.manager.email}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--修改项目信息-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    修改项目信息
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <label>项目名称</label>
+                    <p><input type="text" class="form-control" placeholder="项目名称" ng-model="data.project.name"/></p>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="editInfo()">
+                    提交更改
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+<!--查询条件-->
+<div class="row">
+    <div class="col-sm-5 col-xs-12">
+        <p>
+            <input type="text" class="name form-control" ng-model="name" placeholder="请输入项目名称"/>
+        </p>
+    </div>
+    <div class="col-sm-5 col-xs-12">
+        <p>
+            <select class="type form-control" ng-model="status">
+                <option value="">全部</option>
+                <option value="未提交评审">未提交评审</option>
+                <option value="未提交评审撤销">未提交评审撤销</option>
+                <option value="待评审">待评审</option>
+                <option value="评审未通过撤销">评审未通过撤销</option>
+                <option value="待签约">待签约</option>
+                <option value="待签约撤销">待签约撤销</option>
+                <option value="待指派项目经理">待指派项目经理</option>
+                <option value="督办">督办</option>
+                <option value="结项">结项</option>
+            </select>
+        </p>
+    </div>
+    <div class="col-sm-2 col-xs-12">
+        <p>
+            <input type="submit" id="page" class="btn btn-cloud form-control" ng-click="submit()" value="搜索"/>
+        </p>
+    </div>
+</div>
+<br/>
+<!--项目模块-->
+<div class="row">
+    <div class="col-sm-6 col-xs-12" ng-repeat="info in data">
+        <a href="#/project/baseInfo/{{info.id}}" style="color: #333">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="text-overflow : ellipsis; white-space : nowrap; overflow : hidden; ">{{info.name}}</h3>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        标<span style="margin: 0 4px"></span>的<span style="margin: 0 3px"></span>额: &nbsp;{{info.money}}万
+                    </p>
+                    <p>
+                        状<span style="margin: 0 14px"></span>态: &nbsp;{{info.status}}
+                    </p>
+                    <p>
+                        创建时间: &nbsp;{{info.create_time}}
+                    </p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<!--分页-->
+<pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm"
+            boundary-links="true" rotate="false" num-pages="numPages"
+            ng-change="pageChanged(bigCurrentPage)"></pagination>

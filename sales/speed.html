@@ -1,0 +1,52 @@
+<ul id="myTab" class="nav nav-tabs">
+    <li>
+        <a href="#/baseInfo/{{commonPid}}" data-toggle="tab">基本信息</a>
+    </li>
+    <li class="active">
+        <a href="#/speed/{{commonPid}}" data-toggle="tab">进度</a>
+    </li>
+    <li>
+        <a href="#/files/{{commonPid}}" data-toggle="tab">文件</a>
+    </li>
+    <li>
+        <a href="#/endProject/{{commonPid}}" data-toggle="tab">结项</a>
+    </li>
+</ul>
+<br/>
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade in active" id="baseInfo">
+        <div class="row">
+            <!--<div class="col-sm-8 col-sm-offset-2 col-xs-10 col-xs-1">-->
+            <div class="col-xs-12">
+                <div class="data1">
+                    <h4><b>律师遴选阶段</b></h4>
+                    <p ng-if="data.type1.length == 0">暂无信息</p>
+                    <div ng-repeat="info1 in data.type1" style="border-bottom: 1px dashed #aaa; padding: 10px 0px">
+                        <p>{{info1.time}}</p>
+                        <p>{{info1.content | splite}}</p>
+                        <p style="color: #276e85">{{info1.user_name}}</p>
+                    </div>
+                    <br/>
+                    <h4><b>案件督办</b></h4>
+                    <p ng-if="data.type2.length == 0">暂无信息</p>
+                    <div ng-repeat="info2 in data.type2" style="border-bottom: 1px solid #276e85; padding: 10px 0px">
+                        <div ng-repeat="msg in info2 track by $index" style="border-bottom: 1px dashed #aaa; padding: 10px 0px">
+                            <p>{{msg.time}}</p>
+                            <p>{{msg.content | splite}}</p>
+                            <p style="color: #276e85">{{msg.user_name}}</p>
+                        </div>
+                    </div>
+                    <br/>
+                    <h4><b>结项</b></h4>
+                    <p ng-if="data.type3.length == 0">暂无信息</p>
+                    <div ng-repeat="info3 in data.type3" style="border-bottom: 1px dashed #aaa; padding: 10px 0px">
+                        <p>{{info3.time}}</p>
+                        <p>{{info3.content | splite}}</p>
+                        <p style="color: #276e85">{{info3.user_name}}</p>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

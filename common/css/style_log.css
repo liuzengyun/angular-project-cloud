@@ -1,0 +1,13 @@
+body {
+    background: url(../images/bg.jpg) repeat;
+}
+.login_m {
+    position: relative;
+}
+.login_m .col-sm-4 {
+    background: #fefefe;
+    box-shadow: 1px 1px 1px 1px #eee;
+    border: 1px solid #eee;
+    padding: 10px 30px;
+    border-radius: 10px;
+}

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html ng-app="cloud">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>帮瀛云助理 | 风控</title>
+    <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../common/css/style.css"/>
+    <link rel="icon" href="../common/images/favicon.icon" type="image/x-icon"/>
+    <link rel="shortcut icon" href="../common/images/favicon.icon" type="image/x-icon"/>
+    <link rel="BOOKMARK" href="../common/images/favicon.icon" type="image/x-icon"/>
+    <!--增强bootstrap图标的插件css-->
+    <link href="../vendor/bootstrap/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body ng-controller="commonCtrl" style="padding-top: 65px">
+<!--导航栏-->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#example-navbar-collapse">
+                <span class="sr-only">切换导航</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#/">
+                <img src="../common/images/logoCould.png" width="130"/>
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="example-navbar-collapse">
+            <ul class="nav navbar-nav">
+                <!--<li><a href="#/" class="clickBg">项目</a></li>-->
+                <!--<li class="dropdown dropdown-toggle" data-toggle="dropdown">-->
+                    <!--<a href="javascript:;">-->
+                        <!--通知<b class="caret"></b>-->
+                    <!--</a>-->
+                    <!--<ul class="dropdown-menu noticeLi">-->
+                        <!--<li ng-show="noticeStatus"><a href="">暂时没有通知信息</a></li>-->
+                        <!--<li ng-repeat="info in noticeData">-->
+                            <!--<a ng-click="noticeStatusFun(info.id)" href="javascript:;">{{info.content}} <span-->
+                                    <!--class="text-primary">{{info.time}}</span></a>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+                <li class="dropdown dropdown-toggle" data-toggle="dropdown">
+                    <a href="javascript:;">
+                        {{name}}<b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!--修改密码公共化,所以每次单击需要传递就改密码接口过去-->
+                        <li><a class="fa fa-user" href="javascript:;" data-toggle="modal" data-target="#baseInfo">
+                            我的信息</a></li>
+                        <li><a class="fa fa-key" href="javascript:;" data-toggle="modal" data-target="#updatePass">
+                            修改密码</a></li>
+                        <li><a class="fa fa-sign-out" href="javascript:;" ng-click="loginOut()"> 退出</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!--/导航栏-->
+<!--angularjs路由加载内容-->
+<div class="container">
+    <div ng-view>
+
+    </div>
+    <!--修改密码-->
+    <div class="modal fade" id="updatePass" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        修改密码
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <label>原密码</label>
+                        <p>
+                            <input type="password" class="form-control" placeholder="请输入原密码" ng-model="oldPass"/>
+                        </p>
+                        <label>新密码</label>
+                        <p>
+                            <input type="password" class="form-control" placeholder="请输入新密码" ng-model="oldPassToo"/>
+                        </p>
+                        <label>确认新密码</label>
+                        <p><input type="password" class="form-control" placeholder="请再次输入新密码" ng-model="newPass"/></p>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="updatePassword('admin/user_pass_update')">
+                        修改
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--修改我的信息-->
+    <div class="modal fade" id="baseInfo" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        我的信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <p>
+                        <div class="col-sm-2 col-xs-4 text-right">姓 名:</div>
+                        <div class="col-sm-10 col-xs-8">{{name}}</div>
+                        </p>
+                    </div>
+                    <p></p>
+                    <div class="row">
+                        <p>
+                        <div class="col-sm-2 col-xs-4 text-right">手 机:</div>
+                        <div class="col-sm-10 col-xs-8">{{phone}}</div>
+                        </p>
+                    </div>
+                    <p></p>
+                    <div class="row">
+                        <p>
+                        <div class="col-sm-2 col-xs-4 text-right">座 机:</div>
+                        <div class="col-sm-10 col-xs-8">
+                            <input type="text" ng-model="tel" class="form-control" />
+                        </div>
+                        </p>
+                    </div>
+                    <p></p>
+                    <div class="row">
+                        <p>
+                        <div class="col-sm-2 col-xs-4 text-right">邮 箱:</div>
+                        <div class="col-sm-10 col-xs-8">
+                            <input type="text" ng-model="email" class="form-control" />
+                        </div>
+                        </p>
+                    </div>
+                    <p></p>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">关闭
+                        </button>
+                        <button type="button" class="btn btn-primary" ng-click="editBaseInfo()">修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/angularjs路由加载内容-->
+    <script type="text/javascript" src="../common/js/common.js"></script>
+    <script type="text/javascript" src="../vendor/jquery/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../vendor/angularJS/angular-1.4.8.js"></script>
+    <script type="text/javascript" src="../vendor/angularJS/angular-route.min.js"></script>
+    <!--这是angularjs的无限滚动插件-->
+    <script type="text/javascript" src="../vendor/angularJS/ng-infinite-scroll.min.js"></script>
+    <!--分页插件-->
+    <script type="text/javascript" src="../vendor/angularJS/ui-bootstrap-tpls.js"></script>
+    <!--文件上传插件-->
+    <script type="text/javascript" src="../vendor/angularJS/ng-file-upload.min.js"></script>
+    <script type="text/javascript" src="../vendor/angularJS/ng-file-upload-shim.min.js"></script>
+    <script type="text/javascript" src="../common/js/myRoute.js"></script>
+    <script type="text/javascript" src="js/control.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            // 手机端,单击菜单菜单隐藏
+            var width = $(document).width();
+            if (width < 500) {
+                $(".nav li").click(function () {
+                    $(".navbar-toggle").click();
+                })
+            }
+
+            // 单击通知 隐藏
+            $(document).on("click", ".noticeLi li", function () {
+                $(this).remove();
+            })
+        })
+    </script>
+</body>
+</html>

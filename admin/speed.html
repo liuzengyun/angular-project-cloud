@@ -1,0 +1,54 @@
+<ul id="myTab" class="nav nav-tabs">
+    <li>
+        <a href="#/project/baseInfo/{{pid}}" data-toggle="tab">基本信息</a>
+    </li>
+    <li>
+        <a href="#/project/files/{{pid}}" data-toggle="tab">文件</a>
+    </li>
+    <li class="active">
+        <a href="#/project/speed/{{pid}}" data-toggle="tab">进度</a>
+    </li>
+    <li>
+        <a href="#/project/module/{{pid}}" data-toggle="tab">环节与节点</a>
+    </li>
+</ul>
+<br/>
+<!--splite为自定义过滤器-->
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="speed">
+        <div class="data1">
+            <blockquote class="text-primary"><b>律师遴选阶段</b></blockquote>
+            <p ng-show="data1Status">暂无信息</p>
+            <div ng-repeat="info1 in data1" style="border-bottom: 1px dashed #aaa; padding: 10px 0px">
+                <p>{{info1.time}}</p>
+                <p>{{info1.content | splite}}</p>
+                <p>{{info1.user_name}}</p>
+            </div>
+        </div>
+        <br/>
+        <div class="data2">
+            <blockquote class="text-primary"><b>案件督办阶段</b></blockquote>
+            <p ng-show="data2Status">暂无信息</p>
+            <div ng-repeat="info2 in data2">
+                <div ng-repeat="msg in info2" style="border-bottom: 1px dashed #aaa; padding: 10px 0px">
+                    <p>{{msg.time}}</p>
+                    <p>{{msg.content | splite}}</p>
+                    <p>{{msg.user_name}}</p>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="data3">
+            <blockquote class="text-primary"><b>结项阶段</b></blockquote>
+            <p ng-show="data3Status">暂无信息</p>
+            <div ng-repeat="info3 in data3" style="border-bottom: 1px dashed #aaa; padding: 10px 0px">
+                <p>{{info3.time}}</p>
+                <p>{{info3.content | splite}}</p>
+                <p>{{info3.user_name}}</p>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <br/>
+    </div>
+</div>

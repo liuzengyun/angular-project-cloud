@@ -1,0 +1,174 @@
+<ul id="myTab" class="nav nav-tabs">
+    <li>
+        <a href="#/baseInfo/{{commonPid}}" data-toggle="tab">基本信息</a>
+    </li>
+    <li>
+        <a href="#/speed/{{commonPid}}" data-toggle="tab">进度</a>
+    </li>
+    <li>
+        <a href="#/files/{{commonPid}}" data-toggle="tab">文件</a>
+    </li>
+    <li class="active">
+        <a href="#/endProject/{{commonPid}}" data-toggle="tab">结项</a>
+    </li>
+</ul>
+<br/>
+<div id="myTabContent" class="tab-content">
+    <div class="row">
+        <div class="col-sm-4 col-xs-12">
+            <div class="well">
+                <h5 class="text-center text-primary">我的待办事项</h5>
+                <div style="min-height: 300px; border-bottom: 1px dashed red; margin-bottom: 10px;">
+                    <div ng-if="info.user_type == 1 && info.item_status == 1 || info.user_type == 1 && info.item_status == 3"
+                         ng-repeat="info in projectModuleData.data"
+                         style="border-bottom: 1px dashed #aaa; padding-bottom: 10px">
+                        <input ng-if="info.operate == 0" type="checkbox" ng-click="itemChange(info.pmiid, info.detail, info.mid, info.pid, info.pmid)" />
+                        <input ng-if="info.operate == 1" type="checkbox" ng-click="itemChange(info.pmiid, info.detail, info.mid, info.pid, info.pmid)" data-toggle="modal" data-target="#fileType"/>
+                        <input ng-if="info.operate == 2" type="checkbox" ng-click="itemChange(info.pmiid, info.detail, info.mid, info.pid, info.pmid)" />
+                        <input ng-if="info.operate == 3" type="checkbox" ng-click="itemChange(info.pmiid, info.detail, info.mid, info.pid, info.pmid)" />
+                        <input ng-if="info.operate == 5" type="checkbox" ng-click="itemChange(info.pmiid, info.detail, info.mid, info.pid, info.pmid)" />
+                        <div>
+                            <div ng-repeat="msg in info.detail | splitArr">
+                                <p>{{$index+1}}. {{msg}}</p>
+                            </div>
+                            <p class="text-right"><span ng-if="info.item_status == 3"
+                                                        class="red">{{info.deadline}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div style="min-height: 300px">
+                    <div ng-if="info.user_type == 1 && info.item_status == 2" ng-repeat="info in projectModuleData.data"
+                         style="border-bottom: 1px dashed #aaa; padding-bottom: 10px">
+                        <input type="checkbox" disabled="disabled" checked/>
+                        <div>
+                            <div ng-repeat="msg in info.detail | splitArr">
+                                <p>{{$index+1}}. {{msg}}</p>
+                            </div>
+                            <p class="text-right">{{info.deadline}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-xs-12">
+            <div class="well">
+                <h5 class="text-center text-primary">律师待办事项</h5>
+                <div style="min-height: 300px; border-bottom: 1px dashed red; margin-bottom: 10px;">
+                    <div ng-if="info.user_type == 2 && info.item_status == 1 || info.user_type == 2 && info.item_status == 3"
+                         ng-repeat="info in projectModuleData.data"
+                         style="border-bottom: 1px dashed #aaa; padding-bottom: 10px">
+                        <input type="checkbox" disabled="disabled" />
+                        <div>
+                            <div ng-repeat="msg in info.detail | splitArr">
+                                <p>{{$index+1}}. {{msg}}</p>
+                            </div>
+                            <p class="text-right"><span ng-if="info.item_status == 3"
+                                                        class="red">{{info.deadline}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div style="min-height: 300px">
+                    <div ng-if="info.user_type == 2 && info.item_status == 2" ng-repeat="info in projectModuleData.data"
+                         style="border-bottom: 1px dashed #aaa; padding-bottom: 10px">
+                        <input type="checkbox" disabled="disabled" checked/>
+                        <div>
+                            <div ng-repeat="msg in info.detail | splitArr">
+                                <p>{{$index+1}}. {{msg}}</p>
+                            </div>
+                            <p class="text-right">{{info.deadline}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-xs-12">
+            <div class="well">
+                <h5 class="text-center text-primary">客户待办事项</h5>
+                <div style="min-height: 300px; border-bottom: 1px dashed red; margin-bottom: 10px;">
+                    <div ng-if="info.user_type == 4 && info.item_status == 1 || info.user_type == 4 && info.item_status == 3"
+                         ng-repeat="info in projectModuleData.data"
+                         style="border-bottom: 1px dashed #aaa; padding-bottom: 10px">
+                        <input type="checkbox" disabled="disabled"/>
+                        <div>
+                            <div ng-repeat="msg in info.detail | splitArr">
+                                <p>{{$index+1}}. {{msg}}</p>
+                            </div>
+                            <p class="text-right"><span ng-if="info.item_status == 3"
+                                                        class="red">{{info.deadline}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div style="min-height: 300px">
+                    <div ng-if="info.user_type == 4 && info.item_status == 2" ng-repeat="info in projectModuleData.data"
+                         style="border-bottom: 1px dashed #aaa; padding-bottom: 10px">
+                        <input type="checkbox" disabled="disabled" checked/>
+                        <div>
+                            <div ng-repeat="msg in info.detail | splitArr">
+                                <p>{{$index+1}}. {{msg}}</p>
+                            </div>
+                            <p class="text-right">{{info.deadline}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 模态框(type=1上传文件) -->
+<div class="modal fade" id="fileType" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" ng-controller="itemUploadFile">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                    上传文件
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <p>选择文件类型</p>
+                    <p>
+                        <select class="form-control" ng-model="uploadFileType">
+                            <option value="1">案件材料与证据</option>
+                            <option value="2">律师工作成效</option>
+                            <option value="3">官方文件</option>
+                            <option value="4">帮瀛内部文件</option>
+                        </select>
+                    </p>
+                    <!--注意file是一个对象 ng-model file.name就是选择文件的名称-->
+                    <div class="btn btn-default" ngf-select ng-model="file" ngf-max-size="20MB">请选择文件</div>
+                    <span style="margin-right: 20px;">{{file.name}}</span>
+                    <div style="clear: both"></div>
+                    <!--这是现实进度条的部分-->
+                    <div class="progress progress-striped" style="display: none; margin-top: 20px">
+                        <div class="progress-bar progress-bar-success" role="progressbar"
+                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                             style="width:{{progress}}%">
+                            <span class="sr-only">90% 完成（成功）</span>
+                        </div>
+                    </div>
+                    <!--/这是现实进度条的部分-->
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="signFile()">
+                    提交
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+<ul id="myTab" class="nav nav-tabs">
+    <li class="active">
+        <a href="#/project/baseInfo/{{data.project.pid}}" data-toggle="tab">基本信息</a>
+    </li>
+    <li>
+        <a href="#/project/files/{{data.project.pid}}" data-toggle="tab">文件</a>
+    </li>
+    <li>
+        <a href="#/project/speed/{{data.project.pid}}" data-toggle="tab">进度</a>
+    </li>
+</ul>
+<br/>
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="baseInfo">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{data.project.p_name}} <span
+                        class="glyphicon glyphicon-edit pull-right"
+                        data-toggle="modal"
+                        data-target="#myModal" style="cursor: pointer" title="修改项目"></span>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <p>标的额: {{data.project.p_money}}万</p>
+                <p>对方当事人: {{data.project.p_opposite}}</p>
+                <p>第三人: {{data.project.p_third}}</p>
+                <p>案情简介: {{data.project.p_brief}}</p>
+                <p>
+                    客户目标:
+                <span ng-repeat="info in data.project.p_goals">
+                    {{info + " "}}
+                </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    修改项目信息
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <label>项目名称</label>
+                    <p><input type="text" class="form-control" placeholder="项目名称" ng-model="data.project.p_name"/></p>
+                    <label>标的额</label>
+                    <p><input type="text" class="form-control" placeholder="标的额" ng-model="data.project.p_money"/></p>
+                    <label>对方当事人</label>
+                    <p><input type="text" class="form-control" placeholder="对方当事人" ng-model="data.project.p_opposite"/>
+                    </p>
+                    <label>第三人</label>
+                    <p><input type="text" class="form-control" placeholder="第三人" ng-model="data.project.p_third"/></p>
+                    <label>案情简介</label>
+                    <p><input type="text" class="form-control" placeholder="案情简介" ng-model="data.project.p_brief"/></p>
+                    <label>客户目标</label>
+                    <p ng-repeat="msg in data.project.p_goals" ng-if="data.project.p_goals != ''">
+                        <input ng-if="msg != ''" type="text" class="form-control msg" placeholder="客户目标"
+                               ng-model="msg"/>
+                    </p>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="editInfo()">
+                    提交更改
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,134 @@
+<div class="row">
+    <div class="col-sm-12 col-xs-12">
+        <p class="text-right">
+            <button class="btn btn-cloud" data-toggle="modal" data-target="#addItem">新增</button>
+        </p>
+        <div ng-repeat="info in data">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        {{info.module}}
+                        <label class="pull-right">
+                            <span class="glyphicon glyphicon-edit" style="cursor: pointer" data-toggle="modal"
+                                  data-target="#editItem"
+                                  ng-click="editItemsInfo(info.iid, info.detail, info.due_time, info.user_type, info.operate)"></span>
+                            <span class="glyphicon glyphicon-remove" ng-click="delItems(info.iid)"
+                                  style="cursor: pointer"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <p>详情: {{info.detail | splite}}</p>
+                    <p>操作: {{info.operate}}</p>
+                    <p>期限: {{info.due_time | underfinedNull}} 天</p>
+                    <p>操作人: {{info.user_type}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 新增条目  -->
+<div class="modal fade" id="addItem" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    新增条目
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <label>用户类型</label>
+                    <p>
+                        <select class="form-control" ng-model="user_type">
+                            <option value="市场人员">市场人员</option>
+                            <option value="风控人员">风控人员</option>
+                            <option value="项目人员">项目人员</option>
+                            <option value="客户">客户</option>
+                            <option value="律师">律师</option>
+                        </select>
+                    </p>
+                    <label>操作</label>
+                    <p>
+                        <select class="form-control" ng-model="operate">
+                            <option value="无其他操作">无其他操作</option>
+                            <option value="上传文件">上传文件</option>
+                            <option value="填写开庭时间、地点">填写开庭时间、地点</option>
+                            <option value="填写合议庭成员">填写合议庭成员</option>
+                        </select>
+                    </p>
+                    <label>期限(天)</label>
+                    <p><input type="number" class="form-control" placeholder="期限" ng-model="due_time"/></p>
+                    <label>详情</label>
+                    <p><textarea class="form-control" placeholder="详情" ng-model="detail"></textarea></p>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="addItems()">
+                    新增
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 修改条目 -->
+<div class="modal fade" id="editItem" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                    修改条目
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <label>用户类型</label>
+                    <p>
+                        <select class="form-control" ng-model="itemsUser_type">
+                            <option value="市场人员">市场人员</option>
+                            <option value="风控人员">风控人员</option>
+                            <option value="项目人员">项目人员</option>
+                            <option value="客户">客户</option>
+                            <option value="律师">律师</option>
+                        </select>
+                    </p>
+                    <label>操作</label>
+                    <p>
+                        <select class="form-control" ng-model="itemsOperate">
+                            <option value="无其他操作">无其他操作</option>
+                            <option value="上传文件">上传文件</option>
+                            <option value="填写开庭时间、地点">填写开庭时间、地点</option>
+                            <option value="填写合议庭成员">填写合议庭成员</option>
+                        </select>
+                    </p>
+                    <label>期限(天)</label>
+                    <p><input type="text" class="form-control" placeholder="期限" ng-model="itemsDue_time"/></p>
+                    <label>详情</label>
+                    <p><textarea class="form-control" placeholder="详情" ng-model="itemsDetail"></textarea></p>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="editItems()">
+                    修改
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

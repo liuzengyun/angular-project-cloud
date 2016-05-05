@@ -1,0 +1,193 @@
+<p class="text-right">
+    <label>项目状态:</label>
+    <select class="changeProjectStatus" ng-model="status" ng-change="statusChange()">
+        <option value="">所有项目</option>
+        <option value="未提交评审">未提交评审</option>
+        <option value="未提交评审撤销">未提交评审撤销</option>
+        <option value="待评审">待评审</option>
+        <option value="评审未通过撤销">评审未通过撤销</option>
+        <option value="待签约">待签约</option>
+        <option value="待签约撤销">待签约撤销</option>
+        <option value="待指派项目经理">待指派项目经理</option>
+        <option value="督办">督办</option>
+        <option value="结项">结项</option>
+    </select>
+</p>
+<div class="row">
+    <div class="col-xs-12" ng-if="data.length==''">
+        <p>暂无项目</p>
+    </div>
+    <div class="col-sm-4 col-xs-12" ng-repeat="info in data track by $index">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <label class="overNoWrap" style="margin-bottom: 0px"><a href="#/baseInfo/{{info.pid}}" style="color: #333">{{info.name}}</a></label>
+                </div>
+            </div>
+            <div class="panel-body">
+                <!--未提交评审-->
+                <div ng-if="info.status == '未提交评审'" class="pull-right">
+                    <a href="javascript:;" class="label label-primary" ng-click="submitReview(info.pid)">提交评审</a>
+                    <a href="javascript:;" class="label label-primary" ng-click="addFiles(info.pid)" data-toggle="modal" data-target="#signFile">补充材料</a>
+                </div>
+                <!--待签约-->
+                <div ng-if="info.status == '待签约'" class="pull-right">
+                    <a href="javascript:;" class="label label-primary" ng-click="sign(info.pid)" data-toggle="modal"
+                       data-target="#sign">签约</a>
+                    <a href="javascript:;" class="label label-primary" ng-click="endProject(info.pid)">结束项目</a>
+                </div>
+                <!--评审未通过-->
+                <!--<div ng-if="info.status == '评审未通过撤销'" class="pull-right">-->
+                    <!--<a href="javascript:;" class="label label-primary" ng-click="submitReview(info.pid)">下载评审报告</a>-->
+                <!--</div>-->
+                <a href="#/baseInfo/{{info.pid}}" style="color: #333;">
+                    <p>标<span style="margin: 0 4px"></span>的<span style="margin: 0 4px 0 3px"></span>额: &nbsp;{{info.money}}
+                    </p>
+                    <p>
+                        状<span style="margin: 0 14px"></span>态:
+                        <span class="themeColor">&nbsp;{{info.status}}</span>
+                    </p>
+                    <p style="margin-bottom: 0px">创建时间: &nbsp;{{info.create_time}}</p>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="edit" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    模态框（Modal）标题
+                </h4>
+            </div>
+            <div class="modal-body">
+                在这里添加一些文本
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary">
+                    提交更改
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 模态框(签约) -->
+<div class="modal fade" id="sign" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" ng-controller="signUploadFile">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                    签约
+                </h4>
+            </div>
+            <div class="modal-body">
+                <p>签约时间:<span class="red">*</span></p>
+                <p>
+                    <input type="datetime-local" ng-model="signTime" class="form-control"/>
+                </p>
+                <div>
+                    <p>上传文件: <span class="red">*</span></p>
+                    <!--注意file是一个对象 ng-model file.name就是选择文件的名称-->
+                    <div class="btn btn-default" ngf-select ng-model="file" ngf-max-size="20MB">请选择文件</div>
+                    <span style="margin-right: 20px;">{{file.name}}</span>
+                    <div style="clear: both"></div>
+                    <!--这是现实进度条的部分-->
+                    <div class="progress progress-striped" style="display: none; margin-top: 20px">
+                        <div class="progress-bar progress-bar-success" role="progressbar"
+                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                             style="width:{{progress}}%">
+                            <span class="sr-only">90% 完成（成功）</span>
+                        </div>
+                    </div>
+                    <!--/这是现实进度条的部分-->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <span class="red pull-left" ng-show="warningMsg">必须选择签约时间和文件</span>
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="edit()">
+                    签约
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 模态框(提交评审补充材料) -->
+<div class="modal fade" id="signFile" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" ng-controller="signFile">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                    补充材料
+                </h4>
+            </div>
+            <div class="modal-body">
+               <div>
+                    <!--注意file是一个对象 ng-model file.name就是选择文件的名称-->
+                    <div class="btn btn-default" ngf-select ng-model="file" ngf-max-size="20MB">请选择文件</div>
+                    <span style="margin-right: 20px;">{{file.name}}</span>
+                    <div style="clear: both"></div>
+                    <!--这是现实进度条的部分-->
+                    <div class="progress progress-striped" style="display: none; margin-top: 20px">
+                        <div class="progress-bar progress-bar-success" role="progressbar"
+                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                             style="width:{{progress}}%">
+                            <span class="sr-only">90% 完成（成功）</span>
+                        </div>
+                    </div>
+                    <!--/这是现实进度条的部分-->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="signFile()">
+                    提交
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--分页-->
+<table>
+    <tr>
+        <td>
+            <pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm"
+                        boundary-links="true" rotate="false" num-pages="numPages"
+                        ng-change="pageChanged(bigCurrentPage)"></pagination>
+        </td>
+        <td>
+            &nbsp;&nbsp; 总共: <span class="text-primary">{{bigTotalItems}}</span> 条
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+    $(function () {
+        // 给这两个class的标签添加鼠标移动上去提示效果,只要给标签添加title属性即可
+        $(".glyphicon-edit, .glyphicon-remove, .glyphicon-ok").tooltip();
+    });
+</script>

@@ -1,0 +1,119 @@
+<p class="text-right">
+    <label>项目状态:</label>
+    <select class="changeProjectStatus" ng-model="status" ng-change="statusChange()">
+        <option value="">所有项目</option>
+        <option value="待评审项目">待评审项目</option>
+        <option value="评审通过项目">评审通过项目</option>
+        <option value="评审未通过项目">评审未通过项目</option>
+    </select>
+</p>
+<div class="row">
+    <div class="col-xs-12" ng-if="data.length==''">
+        <p>暂无项目</p>
+    </div>
+    <div class="col-sm-4 col-xs-12" ng-repeat="info in data track by $index">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <label class="overNoWrap" style="margin-bottom: 0px">
+                        <a href="#/baseInfo/{{info.id}}" style="color: #333">{{info.name}}</a>
+                    </label>
+                </div>
+            </div>
+            <div class="panel-body">
+                <!--待评审-->
+                <div ng-if="info.status == '待评审'" class="pull-right">
+                    <a href="javascript:;" class="label label-primary" ng-click="addFiles(info.id)" data-toggle="modal"
+                       data-target="#signFile">评审</a>
+                    <a href="javascript:;" class="label label-default" ng-click="signBack(info.id)">打回</a>
+                </div>
+                <a href="#/baseInfo/{{info.id}}" style="color: #333;">
+                    <p>
+                        标<span style="margin: 0 4px"></span>的<span style="margin: 0 5px">额:</span><span>&nbsp;{{info.money}}</span>
+                    </p>
+                    <p>
+                        状<span style="margin: 0 14px"></span>态:
+                        <span class="themeColor">&nbsp;{{info.status}}</span>
+                    </p>
+                    <p>
+                        市场人员:
+                        <span>&nbsp;{{info.sales_name}}</span>
+                    </p>
+                    <p style="margin-bottom: 0px">
+                        创建时间:
+                        <span>&nbsp;{{info.create_time}}</span>
+                    </p>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- 模态框(提交评审补充材料) -->
+<div class="modal fade" id="signFile" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" ng-controller="signFile">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                    评审
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <p>评审时间</p>
+                    <p>
+                        <input type="datetime-local" class="form-control" ng-model="signTime"/>
+                    </p>
+                    <p>评审结果</p>
+                    <p>
+                        <select class="form-control" ng-model="signResult">
+                            <option value="">--请选择--</option>
+                            <option value="1">通过</option>
+                            <option value="0">不通过</option>
+                        </select>
+                    </p>
+                    <p>上传文件</p>
+                    <!--注意file是一个对象 ng-model file.name就是选择文件的名称-->
+                    <div class="btn btn-default" ngf-select ng-model="file" ngf-max-size="20MB">请选择文件</div>
+                    <span style="margin-right: 20px;">{{file.name}}</span>
+                    <div style="clear: both"></div>
+                    <!--这是现实进度条的部分-->
+                    <div class="progress progress-striped" style="display: none; margin-top: 20px">
+                        <div class="progress-bar progress-bar-success" role="progressbar"
+                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                             style="width:{{progress}}%">
+                            <span class="sr-only">90% 完成（成功）</span>
+                        </div>
+                    </div>
+                    <!--/这是现实进度条的部分-->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="signFile()">
+                    提交
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--分页-->
+<table>
+    <tr>
+        <td>
+            <pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm"
+                        boundary-links="true" rotate="false" num-pages="numPages"
+                        ng-change="pageChanged(bigCurrentPage)"></pagination>
+        </td>
+        <td>
+            &nbsp;&nbsp; 总共: <span class="text-primary">{{bigTotalItems}}</span> 条
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,61 @@
+<ul id="myTab" class="nav nav-tabs">
+    <li>
+        <a href="#/project/baseInfo/{{pid}}" data-toggle="tab">基本信息</a>
+    </li>
+    <li>
+        <a href="#/project/files/{{pid}}" data-toggle="tab">文件</a>
+    </li>
+    <li>
+        <a href="#/project/speed/{{pid}}" data-toggle="tab">进度</a>
+    </li>
+    <li class="active">
+        <a href="#/project/module/{{pid}}" data-toggle="tab">环节与节点</a>
+    </li>
+</ul>
+<br/>
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="module">
+        <p ng-show="moduleStatus">暂无信息</p>
+        <!--模块-->
+        <div class="row">
+            <div class="col-sm-3 col-xs-6" ng-repeat="info in data">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <label class="pull-right">
+                            <span class="glyphicon glyphicon-remove" style="cursor: pointer"
+                                  ng-click="delModule(info.pmid)"></span>
+                        </label>
+                        <a href="javascript:;" ng-click="moduleItems(info.mid)">
+                            <p class="text-center">
+                                <span>{{info.module}}</span>
+                            </p>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--/模块-->
+        <!--模块条目-->
+        <div class="panel panel-default" ng-repeat="info in dataItem">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{info.module}}<span class="glyphicon glyphicon-remove pull-right" style="cursor: pointer" title="删除条目" ng-click="deleteItem(info.pmiid)"></span>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <p>操作人: {{info.user_type}}</p>
+                <p>细节: {{info.detail | splite}}</p>
+                <p>操作: {{info.operate}}</p>
+                <p>状态: {{info.item_status}}</p>
+                <p>期限: {{info.due_tiem}}</p>
+            </div>
+        </div>
+        <!--模块条目-->
+    </div>
+</div>
+<style>
+    p {
+        margin: 0px;
+        padding: 10px 0px;
+    }
+</style>

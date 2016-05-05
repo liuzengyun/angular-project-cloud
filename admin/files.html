@@ -1,0 +1,120 @@
+<ul id="myTab" class="nav nav-tabs">
+    <li>
+        <a href="#/project/baseInfo/{{pid}}" data-toggle="tab">基本信息</a>
+    </li>
+    <li class="active">
+        <a href="#/project/files/{{pid}}" data-toggle="tab">文件</a>
+    </li>
+    <li>
+        <a href="#/project/speed/{{pid}}" data-toggle="tab">进度</a>
+    </li>
+    <li>
+        <a href="#/project/module/{{pid}}" data-toggle="tab">环节与节点</a>
+    </li>
+</ul>
+<br/>
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="files">
+        <blockquote class="text-primary">案件材料与证据</blockquote>
+        <span ng-hide="showmsg1">暂无文件</span>
+        <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
+            <tr ng-repeat="info in data1">
+                <td>{{info.name}}</td>
+                <td>{{info.type}}</td>
+                <td>{{info.upload_time}}</td>
+                <td>{{info.upload_user}}</td>
+                <td><a href="{{info.url}}" download="下载">下载</a> | <a href="javascript:;" ng-click="deleteFile(info.id)">删除</a> | <a href="javascript:;" data-toggle="modal" data-target="#editImg" ng-click="editFile(info.id, info.name)">修改</a></td>
+            </tr>
+        </table>
+        <p style="display: none; margin-bottom: 20px;" id="moreOne">
+            <a href="javascript:;" ng-click="showMore()">更多>></a>
+        </p>
+
+        <blockquote class="text-primary">律师工作成果</blockquote>
+        <span ng-hide="showmsg2">暂无文件</span>
+        <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
+            <tr ng-repeat="info in data2">
+                <td>{{info.name}}</td>
+                <td>{{info.type}}</td>
+                <td>{{info.upload_time}}</td>
+                <td>{{info.upload_user}}</td>
+                <td><a href="{{info.url}}" download="下载">下载</a> | <a href="javascript:;" ng-click="deleteFile(info.id)">删除</a> | <a href="javascript:;" data-toggle="modal" data-target="#editImg" ng-click="editFile(info.id)">修改</a></td>
+            </tr>
+        </table>
+        <p style="display: none; margin-bottom: 20px;" id="moreTwo">
+            <a href="javascript:;" ng-click="showMore()">更多>></a>
+        </p>
+
+        <blockquote class="text-primary">官方文件</blockquote>
+        <span ng-hide="showmsg3">暂无文件</span>
+        <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
+            <tr ng-repeat="info in data3">
+                <td>{{info.name}}</td>
+                <td>{{info.type}}</td>
+                <td>{{info.upload_time}}</td>
+                <td>{{info.upload_user}}</td>
+                <td><a href="{{info.url}}" download="下载">下载</a> | <a href="javascript:;" ng-click="deleteFile(info.id)">删除</a> | <a href="javascript:;" data-toggle="modal" data-target="#editImg" ng-click="editFile(info.id)">修改</a></td>
+            </tr>
+        </table>
+        <p style="display: none; margin-bottom: 20px;" id="moreThree">
+            <a href="javascript:;" ng-click="showMore()">更多>></a>
+        </p>
+
+        <blockquote class="text-primary">帮瀛内部文件</blockquote>
+        <span ng-hide="showmsg4">暂无文件</span>
+        <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
+            <tr ng-repeat="info in data4">
+                <td>{{info.name}}</td>
+                <td>{{info.type}}</td>
+                <td>{{info.upload_time}}</td>
+                <td>{{info.upload_user}}</td>
+                <td><a href="{{info.url}}" download="下载">下载</a> | <a href="javascript:;" ng-click="deleteFile(info.id)">删除</a> | <a href="javascript:;" data-toggle="modal" data-target="#editImg" ng-click="editFile(info.id)">修改</a></td>
+            </tr>
+        </table>
+        <p style="display: none; margin-bottom: 20px;" id="moreFour">
+            <a href="javascript:;" ng-click="showMore()">更多>></a>
+        </p>
+
+    </div>
+</div>
+
+<!-- 模态框（Modal -->
+<div class="modal fade" id="editImg" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">×
+                </button>
+                <h4 class="modal-title">
+                    编辑图片
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form name="form" ng-controller="fileCtrl1">
+                    上传图片:
+                    <!--注意file是一个对象 ng-model file.name就是选择文件的名称-->
+                    <div class="btn btn-default" ngf-select ng-model="file" ngf-max-size="20MB">请选择文件</div>
+                    <span style="margin-right: 20px;">{{file.name}}</span>
+                    <div style="clear: both"></div>
+                    <!--这是现实进度条的部分-->
+                    <div class="progress progress-striped" style="display: none; margin-top: 20px">
+                        <div class="progress-bar progress-bar-success" role="progressbar"
+                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                             style="width:{{progress}}%">
+                            <span class="sr-only">90% 完成（成功）</span>
+                        </div>
+                    </div>
+                    <!--/这是现实进度条的部分-->
+                    <p class="text-right">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">关闭
+                        </button>
+                        <button class="btn btn-primary" type="submit" ng-click="edit()">上传</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,162 @@
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2 col-xs-12">
+        <p></p>
+        <p>项目名称<span class="red">*</span></p>
+        <p>
+            <input type="text" ng-model="pName" class="form-control"
+                   placeholder='名称格式为"双方当事人+案件类型", 例如"海泰公司与大同公司股份权纠纷案"'/>
+        </p>
+        <p>标的额<span class="red">*</span></p>
+        <p>
+        <div class="row">
+            <div class="col-sm-3" style="padding-right: 0px;">
+                <input type="number" ng-model="money" class="form-control"/>
+            </div>
+            <div class="col-sm-2 text-left" style="padding-left: 5px; margin-top: 5px;">
+                万元
+            </div>
+        </div>
+        </p>
+        <ul id="clientTab" class="nav nav-tabs">
+            <li class="active">
+                <a href="/#inputClient" data-toggle="tab" ng-click="inputClient()">填写客户信息</a>
+            </li>
+            <li>
+                <a href="/#changeClient" data-toggle="tab" ng-click="changeClient()">选择客户信息</a>
+            </li>
+        </ul>
+        <div id="clientTabContent" class="tab-content">
+            <!--填写客户信息-->
+            <div class="tab-pane fade in active" id="inputClient">
+                <p></p>
+                <p>客户名<span class="red">*</span></p>
+                <p>
+                    <input type="text" class="form-control" ng-model="uName"/>
+                </p>
+                <p>客户或联系人手机号<span class="red">*</span></p>
+                <p>
+                    <input type="text" class="form-control" ng-model="phone"/>
+                </p>
+                <p>联系人或单位</p>
+                <p>
+                    <input type="text" class="form-control" ng-model="firm" placeholder="如果是企业客户,请填写该公司联系人名字; 如果是自然人客户,请填写客户的单位名称"/>
+                </p>
+                <p>部门</p>
+                <p>
+                    <input type="text" class="form-control" ng-model="department"/>
+                </p>
+                <p>职位</p>
+                <p>
+                    <input type="text" class="form-control" ng-model="position"/>
+                </p>
+                <p>座机</p>
+                <p>
+                    <input type="text" class="form-control" ng-model="tel"/>
+                </p>
+                <p>邮箱</p>
+                <p>
+                    <input type="text" class="form-control" ng-model="email"/>
+                </p>
+            </div>
+            <!--选择客户信息-->
+            <div class="tab-pane fade" id="changeClient">
+                <p></p>
+                <div class="row">
+                    <div class="col-sm-10">
+                        <p>
+                            <input type="text" ng-model="searchName" class="form-control" placeholder="请输入客户姓名"/>
+                        </p>
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="button" ng-click="submitSearchClient()" class="btn btn-primary" value="查 询"/>
+                    </div>
+                </div>
+                <table class="table table-response" style="margin-bottom: -10px">
+                    <tr class="active text-center">
+                        <th style="width: 50px">选择</th>
+                        <th>姓名</th>
+                        <th>手机</th>
+                        <th>部门</th>
+                        <th>职位</th>
+                    </tr>
+                    <tr ng-repeat="info in clientList">
+                        <td>
+                            <input type="radio" ng-model="$index" name="clientInfo"
+                                   ng-click="changeClientInfo(info.id)"/>
+                        </td>
+                        <td>
+                            <span>{{info.name}}</span>
+                        </td>
+                        <td>
+                            <span>{{info.phone}}</span>
+                        </td>
+                        <td>
+                            <span>{{info.department}}</span>
+                        </td>
+                        <td>
+                            <span>{{info.position}}</span>
+                        </td>
+                    </tr>
+                </table>
+                <!--分页-->
+                <pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize"
+                            class="pagination-sm"
+                            boundary-links="true" rotate="false" num-pages="numPages"
+                            ng-change="pageChanged(bigCurrentPage)"></pagination>
+            </div>
+        </div>
+        <p></p>
+        <p>对方当事人</p>
+        <p>
+            <input type="text" ng-model="opposite" class="form-control"/>
+        </p>
+        <p>第三人</p>
+        <p>
+            <input type="text" ng-model="third" class="form-control"/>
+        </p>
+        <p>案情简介<span class="red">*</span></p>
+        <p>
+            <textarea ng-model="brief" class="form-control"></textarea>
+        </p>
+        <p>
+            客户目标<span class="red">*</span>
+            <label class="pull-right">
+                <span class="glyphicon glyphicon-plus" title="单击添加一条客户目标" ng-click="addClientTarget()"></span>
+                <span class="glyphicon glyphicon-remove" title="单击删除最后一条客户目标" ng-click="deleteClientTarget()"></span>
+            </label>
+        </p>
+        <p>
+            <input type="text" ng-model="goals" class="form-control" placeholder="客户目标1"/>
+        </p>
+        <div class="moreClientTarget">
+            <p ng-repeat="info in arr">
+                <input type="text" class="form-control target{{$index}}" placeholder="客户目标{{$index+2}}"/>
+            </p>
+        </div>
+
+        <p>对接人</p>
+        <p>
+            <input type="text" ng-model="middleMan" class="form-control" placeholder="案件的对接人,即介绍案件给帮瀛的律师等"/>
+        </p>
+        <p>对接人电话</p>
+        <p>
+            <input type="phone" ng-model="middleManPhone" class="form-control"/>
+        </p>
+        <p>对接人单位</p>
+        <p>
+            <input type="text" ng-model="middleManFirm" class="form-control"/>
+        </p>
+        <p ng-show="warnMsg" class="red pull-left">带*的为必填字段,请填写后再提交!</p>
+        <p class="text-right">
+            <a href="#/" class="btn btn-warning">返回</a>
+            <a href="javascript:;" class="btn btn-primary" ng-click="addProjectClient()">提交</a>
+        </p>
+        <br/>
+        <br/>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $(".glyphicon-remove, .glyphicon-plus").tooltip().css("cursor", "pointer");
+    })
+</script>

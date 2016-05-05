@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html ng-app="cloud">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>登陆</title>
+    <link rel="icon" href="admin/images/favicon.icon" type="image/x-icon"/>
+    <link rel="shortcut icon" href="admin/images/favicon.icon" type="image/x-icon"/>
+    <link rel="BOOKMARK" href="admin/images/favicon.icon" type="image/x-icon"/>
+
+    <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="common/css/style_log.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="vendor/jquery/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="vendor/angularJS/angular-1.4.8.js"></script>
+    <script type="text/javascript" src="common/js/loginJs.js"></script>
+    <script type="text/javascript" src="common/js/common.js"></script>
+    <script type="text/javascript">
+
+    </script>
+    <script>
+        // 登陆框居中
+        $(function () {
+            var height = $(window).height();
+            $(".login_m").css("top", height / 2 - 250);
+        });
+    </script>
+</head>
+<body class="login" ng-controller="loginCtrl">
+<div class="login_m">
+    <div class="container">
+        <div class="login_logo text-center">
+            <img src="admin/images/logo.png" width="196">
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-4 col-xs-10 col-xs-offset-1">
+                <div class="login_boder">
+                    <div class="login_padding" id="login_model">
+                        <br/>
+                        <p>用户名</p>
+                        <input type="text" class="form-control" placeholder="用户名" ng-model="username"/>
+                        <br/>
+                        <p>密码</p>
+                        <input type="password" class="form-control" placeholder="密码" ng-model="password"/>
+                        <h2></h2>
+                        <button class="btn btn-primary btn-block" ng-click="submitLogin()">登陆</button>
+                        <p style="color: red; margin-top: 10px;">{{message}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
